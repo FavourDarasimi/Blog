@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% load static %}
+        
+    <link rel="stylesheet" type="text/css" href="{% static 'css/profile_view.css' %}">
+</head>
+<body>
+    {% if user.profile %}
+    
+    <h1 class="header-text">PROFILE</h1>
+        
+        <div class="profile">
+            
+            <h3 class="profile-header-text">{{user.username.capitalize}}</h3>
+            <img class="profile-img" src="{{user.profile.picture.url}}" alt="profile-image"> 
+            <h3 class="text">First Name : {{user.profile.first_name.capitalize}}</h3>
+            <h3 class="text">Last Name : {{user.profile.last_name.capitalize}}</h3>
+            <h3 class="text">Email : {{user.profile.email}}</h3>       
+            <h3 class="text">Gender : {{user.profile.get_gender_display}}</h3>  
+            <h3 class="text">Bio : {{user.profile.bio.capitalize}}</h3>
+            <h3 class="text">Age : {{user.profile.age}}</h3>
+            <a href="{% url 'edit_profile' user.profile.pk %}"><button id="button">Edit</button></a>
+            <br>
+            <a href="{% url 'posts' %}"><button id="button">Back</button></a>
+        
+        </div>
+    
+    {% else %}
+        <a href="{% url 'create_profile' %}"><h4 class="text">Create Profile</h4></a>
+        <a href="{% url 'posts' %}"><button id="button2">Back</button></a>  
+    {% endif %}
+</body>
+</html>

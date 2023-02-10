@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% load static %}
+        
+    <link rel="stylesheet" type="text/css" href="{% static 'css/post_view.css' %}">
+</head>
+<body>
+    <div class="main">
+        
+        <div>
+            <h2 class="header-text">WELCOME {{user.username.capitalize}} </h2>
+            <nav>
+                <ul>
+                    {% if user.is_authenticated %}
+                        <li>
+                            <a href="{% url 'add_post' %}"><h4 class="text">Add Post</h4></a>
+                        </li>    
+                            
+                        <li>                
+                            <a href="{% url 'profile' %}"><h4 class="text">View Profile</h4></a>                 
+                        </li>  
+                        <li>    
+                            <a href="{% url 'logout' %}"><h4 class="text">Logout</h4></a>
+                        </li>        
+                    {% else %}
+                        <li>
+                            <a href="{% url 'login' %}"><h4 class="text">Login</h4></a>
+                        </li>    
+                        <li>
+                            <a href="{% url 'signup' %}"><h4 class="text">Signup</h4></a>
+                        </li>    
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+        
+        
+        <div >
+            <hr>
+            {% for post in posts %}
+                
+                
+                <h4 class="text"><a href="{% url 'post_detail' post.pk %}">{{post.title.capitalize}}</a> - {{post.author.username.capitalize}}</h4>
+                <h5 class="text">{{post.date_created}}</h5>
+                <hr>
+            {% endfor %}
+        </div> 
+    
+    </div>
+</body>
+</html>

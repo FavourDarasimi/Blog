@@ -1,0 +1,18 @@
+.main{
+    display:grid;
+    grid-template-columns:1fr 5fr;
+}
+
+a{
+    color: royalblue;
+    text-decoration: none;
+}
+
+.text{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.header-text{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
+}

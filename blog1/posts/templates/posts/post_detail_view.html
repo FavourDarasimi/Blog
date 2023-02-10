@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% load static %}
+        
+    <link rel="stylesheet" type="text/css" href="{% static 'css/post_detail.css' %}">
+</head>
+<body>
+    <div>
+        <h1 class="header-text">{{post.title.capitalize}} - {{post.author.username.capitalize}}</h1>
+        <h3 class="body-text">{{post.body.capitalize }}</h3>
+        <h5 class="date-text">{{post.date_created}}</h5>
+    </div>
+    
+    <div>
+        <h3 class="body-text">
+        
+            {% if user.is_authenticated %}
+            <a href="{% url 'like' post.pk %}"><button id="button">Like</button></a>
+            {% endif %}
+            {{post.num_of_likes}}likes
+        
+        </h3>
+    </div>
+    
+    <div>   
+        {% if request.user.id == post.author.id %}
+            <a href="{% url 'edit_post' post.pk %}">Edit</a>
+            <a href="{% url 'delete_post' post.pk %}">Delete</a>
+        {% endif %}
+
+        <a href="{% url 'posts' %}">Back</a>
+    </div>    
+    <hr>
+    
+    <div>
+        <h2 class="header-text">COMMENTS</h3>
+        
+        {% if not post.comment.all %}
+            
+            <h3 class="header-text">NO COMMENTS YET </h3>
+            {% if user.is_authenticated %}
+            <a href="{% url 'add_comment' post.pk %}">Add Comment</a>
+                
+            {% endif %}
+            
+        {% else %}
+            
+            {% if user.is_authenticated %}
+            <a href="{% url 'add_comment' post.pk %}">Add Comment</a>
+            {% endif %}
+            
+            <hr>
+            
+            {% for comments in post.comment.all %}
+                <h3 class="body-text">{{comments.author.username.capitalize}} - {{comments.date_created}}</h3>
+                <h4 class="body-text">{{comments.body}}</h4>
+                <hr>    
+            {% endfor %}
+        
+        {% endif %}
+    </div>    
+</body>
+</html>
